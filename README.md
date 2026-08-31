@@ -1,0 +1,63 @@
+# Brasa Studios
+
+Independent game studio building tactical RPGs — and building them on the DigiByte blockchain.
+
+**Site:** [brasastudios.games](https://brasastudios.games) · **X:** [@Brasa_Games](https://x.com/Brasa_Games)
+
+## What we're building
+
+- **Elements of War** — a tactical RPG, now in production. Limited-edition collectibles ship as
+  DigiAssets: on-chain, verifiable, tradeable.
+- **A direct storefront** at brasastudios.games accepting USD, DigiByte (DGB), and DigiDollar (DD),
+  running against our own full node — no third-party payment processors on the crypto rails.
+
+We build on this stack daily, so we test it hard and report what we find. Everything below is
+public and independently verifiable — check the links, not our word.
+
+## Contributions to the DigiByte ecosystem
+
+The fixes below shipped in **DigiAsset Core** (the asset layer for DigiByte) as a direct result of
+our testing and bug reports on
+[PR #26](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26). Each row links to the commit;
+the credit line is quoted verbatim from the commit message.
+
+### Named in the commit message
+
+| Date | Commit | Fix shipped | Credit, verbatim |
+|---|---|---|---|
+| 2026-08-25 | [`425cccdc`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/425cccdc72e2bb3b45b0be45ba04dc16f72c4416) | Stop locking every fee coin when storenonassetutxo=0 | Reported by BrasaStudios on PR #26. |
+| 2026-08-25 | [`554a2930`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/554a2930007420591a9ba5d2f10522d37faae9e4) | Refuse to start on config keys still holding the # placeholder | It cost BrasaStudios a failed launch to work out on PR #26. |
+| 2026-08-25 | [`6e2de2e6`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/6e2de2e64358d481b26ec143631ea5621e98251c) | Return asset data on pruning nodes instead of a pruned error | Reported by BrasaStudios on PR #26. |
+| 2026-08-25 | [`7b15f61a`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/7b15f61ade00f07c0b7329395f958bdc07ebd18e) | Add rpcwallet so multi wallet nodes work | Reported by BrasaStudios on PR #26, who had to unload their treasury wallet around every operation. |
+| 2026-08-25 | [`949af460`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/949af46037b0d2138a6b6c0622750799e300e746) | Merge PR 26 review fixes from asset_features | Brings in the fixes for BrasaStudios' 2026-08-25 report: fee coins all being locked under storenonassetutxo=0, getassetdata failing on pruning nodes, DigiByte Core errors reported as "Core Offline", rpcwallet for multi wallet nodes, the psp# placeholder config check, and the chain analyzer retry spin. |
+| 2026-08-25 | [`e3abf7f3`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/e3abf7f35caffb3273c1ff54f81a7692c50dcda6) | Stop reporting every DigiByte Core error as "Core Offline" | BrasaStudios hit this on PR #26 chasing a multi wallet error that came back as "DigiByte Core Exception: Core Offline". |
+
+### Not named, but provably ours
+
+The commit repeats a figure that appears only in our public report.
+
+| Date | Commit | Fix shipped | What it quotes back | Where that figure is public |
+|---|---|---|---|---|
+| 2026-08-25 | [`90f0ea60`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/90f0ea6090b104af29b481fda189cecabe95db5f) | Say what the chain analyzer failed on and stop spinning on it | One report had 3,851,461 "Rewinding Phase Started" lines and not one saying what had gone wrong, filling the disk instead of pointing at the problem. | 3,851,461 is our log-forensics count, published in our PR #26 comments of [2026-08-17](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26#issuecomment-5311145174) and [2026-08-25](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26#issuecomment-5405564052) |
+
+## Field reports
+
+- **First known test of DigiAsset Core v1.0.0 (PR #26) against DigiByte Core v9.26.4, on Linux.**
+  Built and ran on Ubuntu 22.04 and 26.04 (maintainer testing had covered macOS + 8.22.2 only).
+  Nine findings with root causes and verified workarounds, posted on the PR.
+- **Diagnosed a mainnet chain-sync livelock down to the line.** Sync died at 99% and retried
+  3.85 million times; we isolated the failing constraint and the dead recovery path, then re-synced
+  through the death height to confirm the maintainer's fix empirically.
+- **Issued DigiAsset #5381 — "Brasa Studios - Test Issue 001".** 100 units, locked supply, metadata
+  self-hosted on IPFS. assetId `La9q3eDK2deYHQnu7DFqAF3Tn9vqekPbz7V88j`, issuance tx
+  `dd86362f6d765181e5bd90503b85166ead6e39e50971b3c66ed10f6cffe64cc8` (height 24,081,128). The dry
+  run for Elements of War's on-chain collectibles.
+- **Ran a full DigiDollar mint-and-redeem cycle in DD's first month on mainnet** (2026-07-27).
+  $100 DD minted against locked DGB collateral, held, redeemed, 100% of collateral recovered —
+  total round-trip cost about one tenth of a cent in fees.
+
+## How this page stays honest
+
+This ledger is regenerated by script from the upstream repositories — never hand-maintained — and
+every claim links to a commit, a pull request, or an on-chain transaction that anyone can check.
+Fixes listed are to DigiAsset Core, not to DigiByte Core itself. *Last verified: 2026-08-31.*
