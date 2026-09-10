@@ -16,11 +16,13 @@ public and independently verifiable — check the links, not our word.
 
 ## Contributions to the DigiByte ecosystem
 
-The fixes below shipped in **DigiAsset Core** (the asset layer for DigiByte) as a direct result of
-our testing and bug reports on
-[PR #26](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26) and
-[issue #29](https://github.com/DigiAsset-Core/DigiAsset_Core/issues/29). Each row links to the
-commit; the credit line is quoted verbatim from the commit message.
+The fixes below shipped in **DigiAsset Core** (the asset layer for DigiByte) and in the
+**DigiByte Android Wallet** ([JohnnyLawDGB/digibytewallet-android](https://github.com/JohnnyLawDGB/digibytewallet-android))
+as a direct result of our testing and bug reports on
+[PR #26](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26),
+[issue #29](https://github.com/DigiAsset-Core/DigiAsset_Core/issues/29), and a private report under
+the wallet's [bug-bounty program](https://github.com/JohnnyLawDGB/digibytewallet-android/blob/develop/BUG-BOUNTY.md).
+Each row links to the commit; the credit line is quoted verbatim from the commit message.
 
 ### Named in the commit message
 
@@ -33,6 +35,7 @@ commit; the credit line is quoted verbatim from the commit message.
 | 2026-08-25 | [`949af460`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/949af46037b0d2138a6b6c0622750799e300e746) | Merge PR 26 review fixes from asset_features | Brings in the fixes for BrasaStudios' 2026-08-25 report: fee coins all being locked under storenonassetutxo=0, getassetdata failing on pruning nodes, DigiByte Core errors reported as "Core Offline", rpcwallet for multi wallet nodes, the psp# placeholder config check, and the chain analyzer retry spin. |
 | 2026-08-25 | [`e3abf7f3`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/e3abf7f35caffb3273c1ff54f81a7692c50dcda6) | Stop reporting every DigiByte Core error as "Core Offline" | BrasaStudios hit this on PR #26 chasing a multi wallet error that came back as "DigiByte Core Exception: Core Offline". |
 | 2026-09-06 | [`62420c4c`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/62420c4ce6a63ad59b4fbc03857277f18a7b17f0) | Refuse transfers of assets whose rules a wallet cannot satisfy (issue 29) | Reported with mainnet reproduction and evidence by Ray / Brasa Studios; the wallet-side approach was proposed by chopperbriano. |
+| 2026-09-09 | [`90a0592c`](https://github.com/JohnnyLawDGB/digibytewallet-android/commit/90a0592ced50a950ca8cc293cd65a4c4e0085b94) | docs(security): ruled-asset transfer gate — report, verification, and approved design | Reported 2026-09-06 by Brasa Studios, verified from source at both ends. |
 
 ### Not named, but provably ours
 
@@ -40,7 +43,7 @@ The commit repeats a figure that appears only in our public report.
 
 | Date | Commit | Fix shipped | What it quotes back | Where that figure is public |
 |---|---|---|---|---|
-| 2026-08-25 | [`90f0ea60`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/90f0ea6090b104af29b481fda189cecabe95db5f) | Say what the chain analyzer failed on and stop spinning on it | One report had 3,851,461 "Rewinding Phase Started" lines and not one saying what had gone wrong, filling the disk instead of pointing at the problem. | 3,851,461 is our log-forensics count, published in our PR #26 comments of [2026-08-17](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26#issuecomment-5311145174) and [2026-08-25](https://github.com/DigiAsset-Core/DigiAsset_Core/pull/26#issuecomment-5405564052) |
+| 2026-08-25 | [`90f0ea60`](https://github.com/DigiAsset-Core/DigiAsset_Core/commit/90f0ea6090b104af29b481fda189cecabe95db5f) | Say what the chain analyzer failed on and stop spinning on it | One report had 3,851,461 "Rewinding Phase Started" lines and not one saying what had gone wrong, filling the disk instead of pointing at the problem. | 3,851,461 -> PR #26 comment 2026-08-17 and 2026-08-25 - our 'Rewinding Phase Started' count |
 
 ## Field reports
 
@@ -63,9 +66,20 @@ The commit repeats a figure that appears only in our public report.
   deliberately on a throwaway asset (tx `f385d004…`, block 24,106,276). Reported with the mechanism
   and on-chain evidence; the maintainer shipped a wallet-side guard the same day (`62420c4c`), and
   we confirmed it on mainnet against a second throwaway asset: refused, no txid, supply unchanged.
+- **Found the same door in the DigiByte Android Wallet, reported it privately under the wallet's
+  bug-bounty program, and supplied the live case** (2026-09-06 to 09-09). The wallet built a plain
+  transfer for a royalty-ruled asset, so one send destroyed the whole holding while the app reported
+  success. We found it by reading the source; the maintainer confirmed it from source the same day,
+  and we issued throwaway ruled assets straight to his test phone so the burn could be captured on
+  the shipped release and the refusal proven on the fix. Rated High and shipped as
+  [v4.0.80](https://github.com/JohnnyLawDGB/digibytewallet-android/releases/tag/v4.0.80) on
+  2026-09-09, with Brasa Studios credited as reporter in the release's
+  [audit log](https://github.com/JohnnyLawDGB/digibytewallet-android/blob/v4.0.80/security/AUDIT-LOG.md)
+  and [bounty report](https://github.com/JohnnyLawDGB/digibytewallet-android/blob/v4.0.80/security/reports/bounty/2026-09-06-ruled-asset-send-burns-holding.md).
 
 ## How this page stays honest
 
 This ledger is regenerated by script from the upstream repositories — never hand-maintained — and
 every claim links to a commit, a pull request, or an on-chain transaction that anyone can check.
-Fixes listed are to DigiAsset Core, not to DigiByte Core itself. *Last verified: 2026-09-06.*
+Fixes listed are to DigiAsset Core and the DigiByte Android Wallet, not to DigiByte Core itself.
+*Last verified: 2026-09-09.*
